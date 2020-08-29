@@ -1,5 +1,5 @@
 const TodoItem = ({ id, todoText, completed, createdDate }) => {
-  return <h1>todo item</h1>;
+  return <h1>{todoText}</h1>;
 };
 
 export default TodoItem;

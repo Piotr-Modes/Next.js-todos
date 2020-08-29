@@ -1,16 +1,81 @@
 import Head from "next/head";
 import { useEffect } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import Link from "next/link";
 import GOREST from "../apis/GOREST";
 import withLoading from "../components/utilities/withLoading";
+import withRecoilStateCheck from "../components/utilities/withRecoilStateCheck";
 import List from "../components/utilities/List";
 import TodoItem from "../components/TodoItem";
+import TodoItemCreator from "../components/TodoItemCreator";
+import {
+  todoListState,
+  recoilReadyState,
+  filteredTodoListState,
+  listOfDeletedTodoIdsState,
+} from "../recoil";
 
 const ListWithLoading = withLoading(List);
+const ListWithLoadingWithRecoilStateCheck = withRecoilStateCheck(
+  ListWithLoading
+);
 
 const Index = ({ allTodos }) => {
+  const [todoList, setTodoList] = useRecoilState(todoListState);
+  const filteredTodoList = useRecoilValue(filteredTodoListState);
+  const [recoilReady, setRecoilReady] = useRecoilState(recoilReadyState);
+  const [listOfDeletedTodoIds, setListOfDeletedTodoIds] = useRecoilState(
+    listOfDeletedTodoIdsState
+  );
+
   useEffect(() => {
-    console.log(allTodos);
+    const checkForTododAppDataInLocalStorage = async () => {
+      try {
+        const response = await JSON.parse(
+          localStorage.getItem("todoAppData-TodoList")
+        );
+        if (response) {
+          const listOfDeletedTodoIdsFromLocalStorage = await JSON.parse(
+            localStorage.getItem("todoAppData-ListOfDeletedTodoIds")
+          );
+          setListOfDeletedTodoIds(listOfDeletedTodoIdsFromLocalStorage);
+
+          const receivedTododList = allTodos;
+
+          const filteredReceivedTododList = receivedTododList.filter(
+            (e) => !listOfDeletedTodoIds.includes(e.id)
+          );
+
+          const updatedTodoList = filteredReceivedTododList.map(
+            (receivedTodo) => {
+              if (response.filter((e) => e.id === receivedTodo.id).length > 0) {
+                return response.filter((e) => e.id === receivedTodo.id)[0];
+              }
+              return receivedTodo;
+            }
+          );
+
+          setTodoList([...updatedTodoList]);
+          console.log(todoList);
+        }
+        if (!response) {
+          setTodoList([...allTodos]);
+          localStorage.setItem(
+            "todoAppData-TodoList",
+            JSON.stringify([...allTodos])
+          );
+          localStorage.setItem(
+            "todoAppData-ListOfDeletedTodoIds",
+            JSON.stringify([])
+          );
+          console.log("buuuuuuu");
+        }
+        setRecoilReady(true);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    checkForTododAppDataInLocalStorage();
   }, []);
   const renderTodoList = (todo, index) => {
     return (
@@ -31,15 +96,18 @@ const Index = ({ allTodos }) => {
       </Head>
 
       <main>
-        main
-        <Link as="todo-details/1234" href="/todo-details/[id]">
+        {/* <Link as="todo-details/1234" href="/todo-details/[id]">
           <a>details</a>
-        </Link>
-        <ListWithLoading
+        </Link> */}
+        <TodoItemCreator />
+        <ListWithLoadingWithRecoilStateCheck
+          isRecoilStateReady={recoilReady}
+          initialState={allTodos}
+          recoilState={filteredTodoList}
           isLoading={false}
-          list={allTodos}
           listRenderer={renderTodoList}
         />
+        {/* <List list={filteredTodoList} listRenderer={renderTodoList} /> */}
       </main>
     </div>
   );
