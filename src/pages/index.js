@@ -1,7 +1,12 @@
 import Head from "next/head";
+import { useEffect } from "react";
 import Link from "next/link";
+import GOREST from "../apis/GOREST";
 
-export default function Home() {
+const Index = ({ allTodos }) => {
+  useEffect(() => {
+    console.log(allTodos);
+  }, []);
   return (
     <div>
       <Head>
@@ -17,4 +22,11 @@ export default function Home() {
       </main>
     </div>
   );
-}
+};
+
+Index.getInitialProps = async () => {
+  const response = await GOREST.getTodos();
+  return { allTodos: response.data.data };
+};
+
+export default Index;
