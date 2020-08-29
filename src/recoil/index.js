@@ -35,6 +35,15 @@ export const textState = atom({
   default: "",
 });
 
+export const charCountState = selector({
+  key: "charCountState",
+  get: ({ get }) => {
+    const text = get(textState);
+
+    return text.length;
+  },
+});
+
 export const filteredTodoListState = selector({
   key: "filteredTodoListState",
   get: ({ get }) => {

@@ -9,6 +9,7 @@ import {
 
 import { Box, Card, Image, Heading, Text, Flex, Button } from "rebass";
 import { Checkbox, Label, Input, Radio } from "@rebass/forms";
+import CharacterCount from "../CharacterCounter";
 
 const TodoItemCreator = () => {
   const [todoList, setTodoList] = useRecoilState(todoListState);
@@ -56,6 +57,10 @@ const TodoItemCreator = () => {
   return (
     <Box>
       <Flex mx={-2} mt={2} mb={3}>
+        <Box xs={{ position: "absolute" }}>
+          <CharacterCount />
+        </Box>
+
         <Input
           type="text"
           name="todo"
