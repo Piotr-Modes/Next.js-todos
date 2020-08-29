@@ -26,7 +26,7 @@ const TodoList = ({ allTodos, filteredTodoList }) => {
     );
   };
   return (
-    <Box mt={3}>
+    <Box mt={3} textAlign="center">
       <ListWithLoadingWithRecoilStateCheck
         isRecoilStateReady={recoilReady}
         initialState={allTodos}
