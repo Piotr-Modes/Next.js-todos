@@ -8,6 +8,7 @@ import withRecoilStateCheck from "../components/utilities/withRecoilStateCheck";
 import List from "../components/utilities/List";
 import TodoItem from "../components/TodoItem";
 import TodoItemCreator from "../components/TodoItemCreator";
+import TodoListStats from "../components/TodoListStats";
 import {
   todoListState,
   recoilReadyState,
@@ -101,6 +102,7 @@ const Index = ({ allTodos }) => {
           <a>details</a>
         </Link> */}
         <TodoItemCreator />
+        <TodoListStats />
         <ListWithLoadingWithRecoilStateCheck
           isRecoilStateReady={recoilReady}
           initialState={allTodos}
