@@ -4,6 +4,7 @@ import {
 } from "../../helperFunctions";
 import { useRecoilState } from "recoil";
 import { todoListState, listOfDeletedTodoIdsState } from "../../recoil";
+import Link from "next/link";
 import { Box, Card, Image, Heading, Text, Flex, Button } from "rebass";
 import { Checkbox, Label, Input, Radio } from "@rebass/forms";
 
@@ -72,14 +73,11 @@ const TodoItem = ({ id, todoText, completed, createdDate }) => {
           <Text fontSize={0}>{timezoneFormatedDate(createdDate)}</Text>
         </Box>
 
-        {/* <Box width={1 / 2}>
-                <Link
-                  as={`todo-details/${singleTodo.id}`}
-                  href="/todo-details/[id]"
-                >
-                  <a>d</a>
-                </Link>
-              </Box> */}
+        <Box width={1 / 2}>
+          <Link as={`todo-details/${id}`} href="/todo-details/[id]">
+            <a>d</a>
+          </Link>
+        </Box>
         <Box>
           <Button
             fontSize={11}
