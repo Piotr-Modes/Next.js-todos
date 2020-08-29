@@ -52,10 +52,10 @@ const TodoItem = ({ id, todoText, completed, createdDate }) => {
     );
   };
   return (
-    <Box key={id} variant="card">
-      <Flex justifyContent="space-between">
-        <Box width={1 / 10}>
-          <Label>
+    <Box key={id} mb={2} variant="card" Flex>
+      <Flex>
+        <Flex width={9 / 12}>
+          <Label width={1 / 12}>
             <Checkbox
               checked={completed}
               onChange={() => {
@@ -63,22 +63,21 @@ const TodoItem = ({ id, todoText, completed, createdDate }) => {
               }}
             />
           </Label>
-        </Box>
-        <Box width={6 / 10}>
+
           <Text fontWeight="bold" fontSize={1}>
             {todoText}
           </Text>
-        </Box>
-        <Box minWidth={50} px={2}>
+        </Flex>
+        <Box width={70} px={2}>
           <Text fontSize={0}>{timezoneFormatedDate(createdDate)}</Text>
         </Box>
 
-        <Box width={1 / 2}>
+        {/* <Box width={1 / 2}>
           <Link as={`todo-details/${id}`} href="/todo-details/[id]">
             <a>d</a>
           </Link>
-        </Box>
-        <Box>
+        </Box> */}
+        <Flex width={1 / 12} sx={{ flexGrow: 1 }} justifyContent="flex-end">
           <Button
             fontSize={11}
             lineHeight={"11px"}
@@ -90,7 +89,7 @@ const TodoItem = ({ id, todoText, completed, createdDate }) => {
           >
             &#10006;
           </Button>
-        </Box>
+        </Flex>
       </Flex>
     </Box>
   );

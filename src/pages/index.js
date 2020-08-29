@@ -1,11 +1,12 @@
 import Head from "next/head";
 import { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import Link from "next/link";
 import GOREST from "../apis/GOREST";
-import withLoading from "../components/utilities/withLoading";
-import withRecoilStateCheck from "../components/utilities/withRecoilStateCheck";
-import List from "../components/utilities/List";
+// import withLoading from "../components/utilities/withLoading";
+// import withRecoilStateCheck from "../components/utilities/withRecoilStateCheck";
+// import List from "../components/utilities/List";
+import TodoHeading from "../components/TodoHeading";
+import TodoList from "../components/TodoList";
 import TodoItem from "../components/TodoItem";
 import TodoItemCreator from "../components/TodoItemCreator";
 import TodoListFilters from "../components/TodoListFilters";
@@ -17,17 +18,15 @@ import {
   filteredTodoListState,
   listOfDeletedTodoIdsState,
 } from "../recoil";
+import { Box } from "rebass";
 
-const ListWithLoading = withLoading(List);
-const ListWithLoadingWithRecoilStateCheck = withRecoilStateCheck(
-  ListWithLoading
-);
+// const ListWithLoading = withLoading(List);
+// const ListWithLoadingWithRecoilStateCheck = withRecoilStateCheck(
+//   ListWithLoading
+// );
 
 const Index = ({ allTodos }) => {
   const [todoList, setTodoList] = useRecoilState(todoListState);
-  const [todoListLoading, setTodoListLoading] = useRecoilState(
-    todoListLoadingState
-  );
   const filteredTodoList = useRecoilValue(filteredTodoListState);
   const [recoilReady, setRecoilReady] = useRecoilState(recoilReadyState);
   const [listOfDeletedTodoIds, setListOfDeletedTodoIds] = useRecoilState(
@@ -92,29 +91,39 @@ const Index = ({ allTodos }) => {
     );
   };
   return (
-    <div>
+    <>
       <Head>
-        <title>Create Next App</title>
+        <title>Todo Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main>
-        {/* <Link as="todo-details/1234" href="/todo-details/[id]">
-          <a>details</a>
-        </Link> */}
+      <Box
+        as={"main"}
+        sx={{
+          p: 4,
+          color: "text",
+          bg: "background",
+          maxWidth: "700px",
+          margin: "0 auto",
+          fontFamily: "body",
+          fontWeight: "body",
+          lineHeight: "body",
+        }}
+        mt={4}
+      >
+        <TodoHeading />
         <TodoItemCreator />
         <TodoListFilters />
         <TodoListStats />
-        <ListWithLoadingWithRecoilStateCheck
+        <TodoList allTodos={allTodos} filteredTodoList={filteredTodoList} />
+        {/* <ListWithLoadingWithRecoilStateCheck
           isRecoilStateReady={recoilReady}
           initialState={allTodos}
           recoilState={filteredTodoList}
           isLoading={todoListLoading}
           listRenderer={renderTodoList}
-        />
-        {/* <List list={filteredTodoList} listRenderer={renderTodoList} /> */}
-      </main>
-    </div>
+        /> */}
+      </Box>
+    </>
   );
 };
 

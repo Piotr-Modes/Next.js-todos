@@ -6,6 +6,7 @@ import {
   todoListLoadingState,
   listOfDeletedTodoIdsState,
 } from "../../recoil";
+import theme from "@rebass/preset";
 
 import { Box, Card, Image, Heading, Text, Flex, Button } from "rebass";
 import { Checkbox, Label, Input, Radio } from "@rebass/forms";
@@ -55,12 +56,33 @@ const TodoItemCreator = () => {
     );
   };
   return (
-    <Box>
-      <Flex mx={-2} mt={2} mb={3}>
-        <Box xs={{ position: "absolute" }}>
+    <Box
+      as={"form"}
+      sx={{
+        margin: "0 auto",
+        position: "relative",
+      }}
+      maxWidth="84%"
+      mt={3}
+    >
+      <Flex>
+        <Box
+          textAlign="center"
+          sx={{
+            position: "absolute",
+            lineHeight: "19px",
+            background: theme.colors.primary,
+            color: "white",
+            fontSize: "13px",
+            borderRadius: "100%",
+            width: "20px",
+            height: "20px",
+            top: "-13px",
+            left: "-13px",
+          }}
+        >
           <CharacterCount />
         </Box>
-
         <Input
           type="text"
           name="todo"
@@ -69,7 +91,7 @@ const TodoItemCreator = () => {
           value={text}
           onChange={onChange}
         />
-        <Button ml={3} onClick={addTodo}>
+        <Button ml={2} onClick={addTodo}>
           Add
         </Button>
       </Flex>
