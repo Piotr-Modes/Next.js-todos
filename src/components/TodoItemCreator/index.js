@@ -3,6 +3,7 @@ import { useRecoilState } from "recoil";
 import {
   textState,
   todoListState,
+  todoListLoadingState,
   listOfDeletedTodoIdsState,
 } from "../../recoil";
 
@@ -11,6 +12,9 @@ import { Checkbox, Label, Input, Radio } from "@rebass/forms";
 
 const TodoItemCreator = () => {
   const [todoList, setTodoList] = useRecoilState(todoListState);
+  const [todoListLoading, setTodoListLoading] = useRecoilState(
+    todoListLoadingState
+  );
   const [text, setText] = useRecoilState(textState);
   const [listOfDeletedTodoIds, setListOfDeletedTodoIds] = useRecoilState(
     listOfDeletedTodoIdsState
@@ -24,6 +28,7 @@ const TodoItemCreator = () => {
     setText("");
   };
   const addTodo = async () => {
+    setTodoListLoading(true);
     if (text.length < 1) return;
     const newTodo = { title: text, completed: false };
     clearInput();
@@ -41,6 +46,7 @@ const TodoItemCreator = () => {
 
     console.log(updatedTodoList);
     setTodoList(updatedTodoList);
+    setTodoListLoading(false);
     console.log(todoList);
     localStorage.setItem(
       "todoAppData-TodoList",

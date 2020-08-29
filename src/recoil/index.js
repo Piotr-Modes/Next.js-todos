@@ -10,6 +10,11 @@ export const todoListState = atom({
   default: [],
 });
 
+export const todoListLoadingState = atom({
+  key: "todoListLoadingState",
+  default: false,
+});
+
 export const searchInputState = atom({
   key: "searchInputState",
   default: "",

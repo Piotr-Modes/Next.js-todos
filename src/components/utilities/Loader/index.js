@@ -1,6 +1,5 @@
-import React from 'react'
-import StyledLoader from './Styles'
+import { Spinner } from "theme-ui";
 
-const Loader = () => <StyledLoader></StyledLoader>
+const Loader = () => <Spinner />;
 
-export default Loader
+export default Loader;

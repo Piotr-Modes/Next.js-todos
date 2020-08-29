@@ -13,6 +13,7 @@ import TodoListStats from "../components/TodoListStats";
 import {
   todoListState,
   recoilReadyState,
+  todoListLoadingState,
   filteredTodoListState,
   listOfDeletedTodoIdsState,
 } from "../recoil";
@@ -24,6 +25,9 @@ const ListWithLoadingWithRecoilStateCheck = withRecoilStateCheck(
 
 const Index = ({ allTodos }) => {
   const [todoList, setTodoList] = useRecoilState(todoListState);
+  const [todoListLoading, setTodoListLoading] = useRecoilState(
+    todoListLoadingState
+  );
   const filteredTodoList = useRecoilValue(filteredTodoListState);
   const [recoilReady, setRecoilReady] = useRecoilState(recoilReadyState);
   const [listOfDeletedTodoIds, setListOfDeletedTodoIds] = useRecoilState(
@@ -41,15 +45,12 @@ const Index = ({ allTodos }) => {
           const listOfDeletedTodoIdsFromLocalStorage = await JSON.parse(
             localStorage.getItem("todoAppData-ListOfDeletedTodoIds")
           );
-
           setListOfDeletedTodoIds(listOfDeletedTodoIdsFromLocalStorage);
           const receivedTododList = allTodos;
-
           const filteredReceivedTododList = receivedTododList.filter(
             (e) => !listOfDeletedTodoIdsFromLocalStorage.includes(e.id)
             // (e) => !listOfDeletedTodoIds.includes(e.id)
           );
-
           const updatedTodoList = filteredReceivedTododList.map(
             (receivedTodo) => {
               if (response.filter((e) => e.id === receivedTodo.id).length > 0) {
@@ -58,7 +59,6 @@ const Index = ({ allTodos }) => {
               return receivedTodo;
             }
           );
-
           setTodoList([...updatedTodoList]);
         }
         if (!response) {
@@ -109,7 +109,7 @@ const Index = ({ allTodos }) => {
           isRecoilStateReady={recoilReady}
           initialState={allTodos}
           recoilState={filteredTodoList}
-          isLoading={false}
+          isLoading={todoListLoading}
           listRenderer={renderTodoList}
         />
         {/* <List list={filteredTodoList} listRenderer={renderTodoList} /> */}
