@@ -35,15 +35,17 @@ const Index = ({ allTodos }) => {
           localStorage.getItem("todoAppData-TodoList")
         );
         if (response) {
+          console.log(response);
           const listOfDeletedTodoIdsFromLocalStorage = await JSON.parse(
             localStorage.getItem("todoAppData-ListOfDeletedTodoIds")
           );
-          setListOfDeletedTodoIds(listOfDeletedTodoIdsFromLocalStorage);
 
+          setListOfDeletedTodoIds(listOfDeletedTodoIdsFromLocalStorage);
           const receivedTododList = allTodos;
 
           const filteredReceivedTododList = receivedTododList.filter(
-            (e) => !listOfDeletedTodoIds.includes(e.id)
+            (e) => !listOfDeletedTodoIdsFromLocalStorage.includes(e.id)
+            // (e) => !listOfDeletedTodoIds.includes(e.id)
           );
 
           const updatedTodoList = filteredReceivedTododList.map(
@@ -56,7 +58,6 @@ const Index = ({ allTodos }) => {
           );
 
           setTodoList([...updatedTodoList]);
-          console.log(todoList);
         }
         if (!response) {
           setTodoList([...allTodos]);
