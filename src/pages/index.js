@@ -20,6 +20,7 @@ import TodoList from "../components/TodoList";
 import TodoItemCreator from "../components/TodoItemCreator";
 import TodoListFilters from "../components/TodoListFilters";
 import TodoListStats from "../components/TodoListStats";
+import ReactTooltip from "react-tooltip";
 
 const Index = ({ allTodos }) => {
   const [todoList, setTodoList] = useRecoilState(todoListState);
@@ -68,6 +69,7 @@ const Index = ({ allTodos }) => {
         <TodoListStats />
         <TodoList allTodos={allTodos} filteredTodoList={filteredTodoList} />
       </PageWrapper>
+      <ReactTooltip backgroundColor="black" textColor="white" />
     </>
   );
 };

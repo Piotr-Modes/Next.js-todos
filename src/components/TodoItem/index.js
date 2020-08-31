@@ -40,7 +40,10 @@ const TodoItem = ({ id, todoText, completed, createdDate }) => {
     <Box key={id} mb={2} variant="card" Flex>
       <Flex>
         <Flex width={9 / 12}>
-          <Label width={1 / 12}>
+          <Label
+            data-tip={completed ? "Mark as Uncompleted" : "Mark as Completed"}
+            width={1 / 12}
+          >
             <Checkbox
               checked={completed}
               onChange={() => {
@@ -53,12 +56,15 @@ const TodoItem = ({ id, todoText, completed, createdDate }) => {
           </Text>
         </Flex>
         <Box width={70} px={2}>
-          <Text fontSize={0}>{timezoneFormatedDate(createdDate)}</Text>
+          <Text data-tip="Date of creation" fontSize={0}>
+            {timezoneFormatedDate(createdDate)}
+          </Text>
         </Box>
         <Flex width={1 / 12} sx={{ flexGrow: 1 }} justifyContent="flex-end">
           <Link as={`todo-details/${id}`} href="/todo-details/[id]">
             <a>
               <Button
+                data-tip="See Details"
                 fontSize={11}
                 sx={{ cursor: "pointer" }}
                 lineHeight={"11px"}
@@ -70,6 +76,7 @@ const TodoItem = ({ id, todoText, completed, createdDate }) => {
             </a>
           </Link>
           <Button
+            data-tip="Delete"
             ml={1}
             fontSize={11}
             sx={{ cursor: "pointer" }}
