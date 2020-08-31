@@ -64,8 +64,11 @@ const TodoItemCreator = () => {
       sx={{
         margin: "0 auto",
         position: "relative",
+        "@media screen and (max-width: 64em)": {
+          width: "100%",
+        },
       }}
-      maxWidth="84%"
+      width="84%"
       mt={3}
     >
       <Flex>

@@ -4,11 +4,11 @@ import { Box, Flex } from "rebass";
 
 const TodoListFilters = () => {
   return (
-    <Flex mx={-2} mt={4}>
-      <Box width={1 / 2} px={2}>
+    <Flex mx={-2} mt={4} flexWrap="wrap">
+      <Box minWidth="50%" flexGrow="1" px={2}>
         <SearchBarFilter />
       </Box>
-      <Box width={1 / 2} px={2}>
+      <Box minWidth="50%" flexGrow="1" px={2}>
         <SelectFilter />
       </Box>
     </Flex>

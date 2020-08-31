@@ -38,29 +38,40 @@ const TodoItem = ({ id, todoText, completed, createdDate }) => {
   };
   return (
     <Box key={id} mb={2} variant="card" Flex>
-      <Flex>
-        <Flex width={9 / 12}>
-          <Label
-            data-tip={completed ? "Mark as Uncompleted" : "Mark as Completed"}
-            width={1 / 12}
-          >
-            <Checkbox
-              checked={completed}
-              onChange={() => {
-                toggleItemCompletion(id);
-              }}
-            />
-          </Label>
-          <Text fontWeight="bold" fontSize={1}>
-            {todoText}
-          </Text>
-        </Flex>
-        <Box width={70} px={2}>
-          <Text data-tip="Date of creation" fontSize={0}>
-            {timezoneFormatedDate(createdDate)}
-          </Text>
-        </Box>
-        <Flex width={1 / 12} sx={{ flexGrow: 1 }} justifyContent="flex-end">
+      <Flex flexWrap="wrap">
+        <Label
+          data-tip={completed ? "Mark as Uncompleted" : "Mark as Completed"}
+          width={40}
+        >
+          <Checkbox
+            mt={1}
+            checked={completed}
+            onChange={() => {
+              toggleItemCompletion(id);
+            }}
+          />
+        </Label>
+        <Text
+          flexGrow="1"
+          textAlign="left"
+          lineHeight={"27px"}
+          fontWeight="bold"
+          fontSize={[0, 1]}
+        >
+          {todoText}
+        </Text>
+
+        <Flex
+          width={1 / 12}
+          minWidth="155px"
+          sx={{ flexGrow: 1 }}
+          justifyContent="flex-end"
+        >
+          <Box width={100} px={2}>
+            <Text data-tip="Date of creation" fontSize={0} lineHeight={"30px"}>
+              {timezoneFormatedDate(createdDate)}
+            </Text>
+          </Box>
           <Link as={`todo-details/${id}`} href="/todo-details/[id]">
             <a>
               <Button
@@ -76,11 +87,15 @@ const TodoItem = ({ id, todoText, completed, createdDate }) => {
             </a>
           </Link>
           <Button
+            mt={1.5}
+            lineHeight={"11px"}
             data-tip="Delete"
             ml={1}
             fontSize={11}
-            sx={{ cursor: "pointer" }}
-            lineHeight={"11px"}
+            sx={{
+              cursor: "pointer",
+            }}
+            height="26.5px"
             variant="outline"
             p={2}
             onClick={() => {
