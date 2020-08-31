@@ -10,7 +10,7 @@ const SelectFilter = () => {
   };
   return (
     <>
-      <Label htmlFor="location">Filter</Label>
+      <Label htmlFor="filter">Filter</Label>
       <Select id="filter" name="filter" value={filter} onChange={updateFilter}>
         <option value="Show All">All</option>
         <option value="Show Completed">Completed</option>

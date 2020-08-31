@@ -56,3 +56,24 @@ export const localStorageSave = (key, value) => {
     $.error("Can't store unrecognized format value");
   localStorage.setItem(key, value);
 };
+
+export const isTodoAppDataInLocalStorage = async () => {
+  try {
+    const response = await localStorageGet("todoAppData-TodoList");
+    if (response) return true;
+    return false;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getOneTodoListFromTwoCompetingOnes = (
+  oldTodoList,
+  newTodoList
+) => {
+  return oldTodoList.map((oldTodo) => {
+    if (newTodoList.find((newTodo) => newTodo.id === oldTodo.id))
+      return newTodoList.find((newTodo) => newTodo.id === oldTodo.id);
+    return oldTodo;
+  });
+};

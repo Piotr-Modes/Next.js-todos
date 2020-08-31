@@ -6,10 +6,12 @@ import {
   todoListLoadingState,
   listOfDeletedTodoIdsState,
 } from "../../recoil";
-import theme from "@rebass/preset";
-
-import { Box, Card, Image, Heading, Text, Flex, Button } from "rebass";
-import { Checkbox, Label, Input, Radio } from "@rebass/forms";
+import {
+  localStorageSave,
+  getOneTodoListFromTwoCompetingOnes,
+} from "../../helperFunctions";
+import { Box, Flex, Button } from "rebass";
+import { Input } from "@rebass/forms";
 import CharacterCount from "../CharacterCounter";
 
 const TodoItemCreator = () => {
@@ -29,35 +31,29 @@ const TodoItemCreator = () => {
   const clearInput = () => {
     setText("");
   };
+
   const addTodo = async () => {
     setTodoListLoading(true);
-    if (text.length < 1) return;
     const newTodo = { title: text, completed: false };
-    // clearInput();
-    const response = await GOREST.createTodo(newTodo);
+    await GOREST.createTodo(newTodo);
     const todoListResponse = await GOREST.getTodos();
     const receivedTododList = todoListResponse.data;
     const filteredRecivedTodoList = receivedTododList.filter(
-      (e) => !listOfDeletedTodoIds.includes(e.id)
+      (todo) => !listOfDeletedTodoIds.includes(todo.id)
     );
-    const updatedTodoList = filteredRecivedTodoList.map((receivedTodo) => {
-      if (todoList.filter((todo) => todo.id === receivedTodo.id).length > 0)
-        return todoList.filter((todo) => todo.id === receivedTodo.id)[0]; //use find
-      return receivedTodo;
-    });
+    const updatedTodoList = getOneTodoListFromTwoCompetingOnes(
+      filteredRecivedTodoList,
+      todoList
+    );
 
-    console.log(updatedTodoList);
     setTodoList(updatedTodoList);
     setTodoListLoading(false);
-    console.log(todoList);
-    localStorage.setItem(
-      "todoAppData-TodoList",
-      JSON.stringify([...updatedTodoList])
-    );
+    localStorageSave("todoAppData-TodoList", [...updatedTodoList]);
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    if (text.length < 1) return;
     await addTodo();
     clearInput();
   };
@@ -75,10 +71,10 @@ const TodoItemCreator = () => {
       <Flex>
         <Box
           textAlign="center"
+          bg="primary"
           sx={{
             position: "absolute",
             lineHeight: "19px",
-            background: theme.colors.primary,
             color: "white",
             fontSize: "13px",
             borderRadius: "100%",

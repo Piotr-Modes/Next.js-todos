@@ -14,6 +14,7 @@ const TodoItem = ({ id, todoText, completed, createdDate }) => {
   const [listOfDeletedTodoIds, setListOfDeletedTodoIds] = useRecoilState(
     listOfDeletedTodoIdsState
   );
+
   const toggleItemCompletion = (id) => {
     const todoIndex = todoList.findIndex((todo) => todo.id === id);
     const updatedTodo = {
@@ -24,6 +25,7 @@ const TodoItem = ({ id, todoText, completed, createdDate }) => {
     setTodoList([...updatedList]);
     localStorageSave("todoAppData-TodoList", [...updatedList]);
   };
+
   const removeTodo = (id) => {
     const listWithoutDeletedTodo = todoList.filter((e) => e.id !== id);
     setTodoList([...listWithoutDeletedTodo]);

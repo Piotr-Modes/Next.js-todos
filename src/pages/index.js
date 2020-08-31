@@ -1,30 +1,25 @@
 import Head from "next/head";
 import { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import GOREST from "../apis/GOREST";
-// import withLoading from "../components/utilities/withLoading";
-// import withRecoilStateCheck from "../components/utilities/withRecoilStateCheck";
-// import List from "../components/utilities/List";
-import PageHeader from "../components/PagesSharedComponents/PageHeader";
-import PageWrapper from "../components/PagesSharedComponents/PageWrapper";
-import TodoList from "../components/TodoList";
-import TodoItem from "../components/TodoItem";
-import TodoItemCreator from "../components/TodoItemCreator";
-import TodoListFilters from "../components/TodoListFilters";
-import TodoListStats from "../components/TodoListStats";
 import {
   todoListState,
   recoilReadyState,
-  todoListLoadingState,
   filteredTodoListState,
   listOfDeletedTodoIdsState,
 } from "../recoil";
-import { Box } from "rebass";
-
-// const ListWithLoading = withLoading(List);
-// const ListWithLoadingWithRecoilStateCheck = withRecoilStateCheck(
-//   ListWithLoading
-// );
+import {
+  isTodoAppDataInLocalStorage,
+  localStorageSave,
+  localStorageGet,
+  getOneTodoListFromTwoCompetingOnes,
+} from "../helperFunctions";
+import GOREST from "../apis/GOREST";
+import PageHeader from "../components/PagesSharedComponents/PageHeader";
+import PageWrapper from "../components/PagesSharedComponents/PageWrapper";
+import TodoList from "../components/TodoList";
+import TodoItemCreator from "../components/TodoItemCreator";
+import TodoListFilters from "../components/TodoListFilters";
+import TodoListStats from "../components/TodoListStats";
 
 const Index = ({ allTodos }) => {
   const [todoList, setTodoList] = useRecoilState(todoListState);
@@ -35,49 +30,30 @@ const Index = ({ allTodos }) => {
   );
 
   useEffect(() => {
-    const checkForTododAppDataInLocalStorage = async () => {
-      try {
-        const response = await JSON.parse(
-          localStorage.getItem("todoAppData-TodoList")
+    const updateAppDataFromLocalStorage = async () => {
+      if (await isTodoAppDataInLocalStorage()) {
+        const localStorageTodoList = localStorageGet("todoAppData-TodoList");
+        const localStorageListOfDeletedTodoIds = localStorageGet(
+          "todoAppData-ListOfDeletedTodoIds"
         );
-        if (response) {
-          console.log(response);
-          const listOfDeletedTodoIdsFromLocalStorage = await JSON.parse(
-            localStorage.getItem("todoAppData-ListOfDeletedTodoIds")
-          );
-          setListOfDeletedTodoIds(listOfDeletedTodoIdsFromLocalStorage);
-          const receivedTododList = allTodos;
-          const filteredReceivedTododList = receivedTododList.filter(
-            (e) => !listOfDeletedTodoIdsFromLocalStorage.includes(e.id)
-          );
-          const updatedTodoList = filteredReceivedTododList.map(
-            (receivedTodo) => {
-              if (response.filter((e) => e.id === receivedTodo.id).length > 0) {
-                return response.filter((e) => e.id === receivedTodo.id)[0];
-              }
-              return receivedTodo;
-            }
-          );
-          setTodoList([...updatedTodoList]);
-        }
-        if (!response) {
-          setTodoList([...allTodos]);
-          localStorage.setItem(
-            "todoAppData-TodoList",
-            JSON.stringify([...allTodos])
-          );
-          localStorage.setItem(
-            "todoAppData-ListOfDeletedTodoIds",
-            JSON.stringify([])
-          );
-          console.log("buuuuuuu");
-        }
-        setRecoilReady(true);
-      } catch (err) {
-        console.log(err);
+        setListOfDeletedTodoIds(localStorageListOfDeletedTodoIds);
+        const receivedTododList = allTodos;
+        const filteredRecivedTodoList = receivedTododList.filter(
+          (e) => !localStorageListOfDeletedTodoIds.includes(e.id)
+        );
+        const updatedTodoList = getOneTodoListFromTwoCompetingOnes(
+          filteredRecivedTodoList,
+          localStorageTodoList
+        );
+        setTodoList([...updatedTodoList]);
+      } else {
+        setTodoList([...allTodos]);
+        localStorageSave("todoAppData-TodoList", [...allTodos]);
+        localStorageSave("todoAppData-ListOfDeletedTodoIds", []);
       }
+      setRecoilReady(true);
     };
-    checkForTododAppDataInLocalStorage();
+    updateAppDataFromLocalStorage();
   }, []);
   return (
     <>

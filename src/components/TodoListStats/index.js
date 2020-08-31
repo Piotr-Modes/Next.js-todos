@@ -1,7 +1,6 @@
 import { todoListStatsState } from "../../recoil";
 import { useRecoilValue } from "recoil";
-import { Box, Card, Image, Heading, Text, Flex, Button } from "rebass";
-import { Checkbox, Label, Input, Radio } from "@rebass/forms";
+import { Box, Flex } from "rebass";
 
 const TodoListStats = () => {
   const todoListStats = useRecoilValue(todoListStatsState);
