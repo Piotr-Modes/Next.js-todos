@@ -5,7 +5,7 @@ import GOREST from "../apis/GOREST";
 // import withLoading from "../components/utilities/withLoading";
 // import withRecoilStateCheck from "../components/utilities/withRecoilStateCheck";
 // import List from "../components/utilities/List";
-import TodoHeading from "../components/TodoHeading";
+import PageHeader from "../components/PageHeader";
 import TodoList from "../components/TodoList";
 import TodoItem from "../components/TodoItem";
 import TodoItemCreator from "../components/TodoItemCreator";
@@ -34,7 +34,6 @@ const Index = ({ allTodos }) => {
   );
 
   useEffect(() => {
-    console.log(allTodos);
     const checkForTododAppDataInLocalStorage = async () => {
       try {
         const response = await JSON.parse(
@@ -49,7 +48,6 @@ const Index = ({ allTodos }) => {
           const receivedTododList = allTodos;
           const filteredReceivedTododList = receivedTododList.filter(
             (e) => !listOfDeletedTodoIdsFromLocalStorage.includes(e.id)
-            // (e) => !listOfDeletedTodoIds.includes(e.id)
           );
           const updatedTodoList = filteredReceivedTododList.map(
             (receivedTodo) => {
@@ -111,7 +109,7 @@ const Index = ({ allTodos }) => {
         }}
         mt={4}
       >
-        <TodoHeading />
+        <PageHeader headerText="ToDo List" />
         <TodoItemCreator />
         <TodoListFilters />
         <TodoListStats />

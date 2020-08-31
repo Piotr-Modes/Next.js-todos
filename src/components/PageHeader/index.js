@@ -1,11 +1,11 @@
 import { Heading } from "rebass";
 
-const TodoHeading = () => {
+const PageHeader = ({ headerText }) => {
   return (
     <Heading variant="display" textAlign="center">
-      ToDo List
+      {headerText}
     </Heading>
   );
 };
 
-export default TodoHeading;
+export default PageHeader;

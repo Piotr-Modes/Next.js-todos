@@ -78,8 +78,24 @@ const TodoItem = ({ id, todoText, completed, createdDate }) => {
           </Link>
         </Box> */}
         <Flex width={1 / 12} sx={{ flexGrow: 1 }} justifyContent="flex-end">
+          <Link as={`todo-details/${id}`} href="/todo-details/[id]">
+            <a>
+              <Button
+                fontSize={11}
+                sx={{ cursor: "pointer" }}
+                lineHeight={"11px"}
+                variant="outline"
+                p={2}
+              >
+                &#10132;
+              </Button>
+            </a>
+          </Link>
+
           <Button
+            ml={1}
             fontSize={11}
+            sx={{ cursor: "pointer" }}
             lineHeight={"11px"}
             variant="outline"
             p={2}

@@ -33,10 +33,10 @@ const TodoItemCreator = () => {
     setTodoListLoading(true);
     if (text.length < 1) return;
     const newTodo = { title: text, completed: false };
-    clearInput();
+    // clearInput();
     const response = await GOREST.createTodo(newTodo);
     const todoListResponse = await GOREST.getTodos();
-    const receivedTododList = todoListResponse.data.data;
+    const receivedTododList = todoListResponse.data;
     const filteredRecivedTodoList = receivedTododList.filter(
       (e) => !listOfDeletedTodoIds.includes(e.id)
     );
@@ -55,9 +55,16 @@ const TodoItemCreator = () => {
       JSON.stringify([...updatedTodoList])
     );
   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    await addTodo();
+    clearInput();
+  };
   return (
     <Box
       as={"form"}
+      onSubmit={handleSubmit}
       sx={{
         margin: "0 auto",
         position: "relative",
@@ -91,7 +98,7 @@ const TodoItemCreator = () => {
           value={text}
           onChange={onChange}
         />
-        <Button ml={2} onClick={addTodo}>
+        <Button ml={2} type="submit" sx={{ cursor: "pointer" }}>
           Add
         </Button>
       </Flex>

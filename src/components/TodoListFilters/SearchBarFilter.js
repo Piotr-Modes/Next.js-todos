@@ -14,7 +14,7 @@ const SearchBarFilter = () => {
   };
   return (
     <>
-      <Label htmlFor="name">Search</Label>
+      <Label htmlFor="search">Search</Label>
       <Input
         onChange={onChange}
         onKeyDown={onKeyDown}
