@@ -1,6 +1,6 @@
-import SearchBarFilter from "./SearchBarFilter";
-import SelectFilter from "./SelectFilter";
-import { Box, Flex } from "rebass";
+import SearchBarFilter from './SearchBarFilter'
+import SelectFilter from './SelectFilter'
+import { Box, Flex } from 'rebass'
 
 const TodoListFilters = () => {
   return (
@@ -12,7 +12,7 @@ const TodoListFilters = () => {
         <SelectFilter />
       </Box>
     </Flex>
-  );
-};
+  )
+}
 
-export default TodoListFilters;
+export default TodoListFilters

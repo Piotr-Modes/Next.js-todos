@@ -1,24 +1,24 @@
-import { Box } from "rebass";
+import { Box } from 'rebass'
 
 const PageWrapper = (props) => {
   return (
     <Box
-      as={"main"}
+      as={'main'}
       sx={{
         p: 4,
-        color: "text",
-        bg: "background",
-        maxWidth: "700px",
-        margin: "0 auto",
-        fontFamily: "body",
-        fontWeight: "body",
-        lineHeight: "body",
+        color: 'text',
+        bg: 'background',
+        maxWidth: '700px',
+        margin: '0 auto',
+        fontFamily: 'body',
+        fontWeight: 'body',
+        lineHeight: 'body',
       }}
       mt={4}
     >
       {props.children}
     </Box>
-  );
-};
+  )
+}
 
-export default PageWrapper;
+export default PageWrapper

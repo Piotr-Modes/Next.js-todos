@@ -1,13 +1,13 @@
-import React from "react";
-import { todoListFilterState } from "../../recoil";
-import { useRecoilState } from "recoil";
-import { Label, Select } from "@rebass/forms";
+import React from 'react'
+import { todoListFilterState } from '../../recoil'
+import { useRecoilState } from 'recoil'
+import { Label, Select } from '@rebass/forms'
 
 const SelectFilter = () => {
-  const [filter, setFilter] = useRecoilState(todoListFilterState);
+  const [filter, setFilter] = useRecoilState(todoListFilterState)
   const updateFilter = ({ target: { value } }) => {
-    setFilter(value);
-  };
+    setFilter(value)
+  }
   return (
     <>
       <Label htmlFor="filter">Filter</Label>
@@ -17,7 +17,7 @@ const SelectFilter = () => {
         <option value="Show Uncompleted">Uncompleted</option>
       </Select>
     </>
-  );
-};
+  )
+}
 
-export default React.memo(SelectFilter);
+export default React.memo(SelectFilter)

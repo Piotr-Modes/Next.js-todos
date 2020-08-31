@@ -1,94 +1,84 @@
-import GOREST from "../../apis/GOREST";
-import { useRecoilState } from "recoil";
-import { useState } from "react";
+import GOREST from '../../apis/GOREST'
+import { useRecoilState } from 'recoil'
+import { useState } from 'react'
 import {
   textState,
   todoListState,
   todoListLoadingState,
   listOfDeletedTodoIdsState,
-} from "../../recoil";
-import {
-  localStorageSave,
-  getOneTodoListFromTwoCompetingOnes,
-} from "../../helperFunctions";
-import { Box, Flex, Button, Text } from "rebass";
-import { Input } from "@rebass/forms";
-import CharacterCount from "../CharacterCounter";
+} from '../../recoil'
+import { localStorageSave, getOneTodoListFromTwoCompetingOnes } from '../../helperFunctions'
+import { Box, Flex, Button, Text } from 'rebass'
+import { Input } from '@rebass/forms'
+import CharacterCount from '../CharacterCounter'
 
 const TodoItemCreator = () => {
-  const [formValidationErrors, setFormValidationErrors] = useState([]);
-  const [todoList, setTodoList] = useRecoilState(todoListState);
-  const [todoListLoading, setTodoListLoading] = useRecoilState(
-    todoListLoadingState
-  );
-  const [text, setText] = useRecoilState(textState);
-  const [listOfDeletedTodoIds, setListOfDeletedTodoIds] = useRecoilState(
-    listOfDeletedTodoIdsState
-  );
+  const [formValidationErrors, setFormValidationErrors] = useState([])
+  const [todoList, setTodoList] = useRecoilState(todoListState)
+  const [todoListLoading, setTodoListLoading] = useRecoilState(todoListLoadingState)
+  const [text, setText] = useRecoilState(textState)
+  const [listOfDeletedTodoIds, setListOfDeletedTodoIds] = useRecoilState(listOfDeletedTodoIdsState)
 
   const isTodoFormValid = (taskText) => {
-    let valid = true;
-    const formErrors = [];
+    let valid = true
+    const formErrors = []
 
-    if (taskText === "") {
-      formErrors.push("Please fill in the task input");
-      valid = false;
+    if (taskText === '') {
+      formErrors.push('Please fill in the task input')
+      valid = false
     }
-    if (!taskText.replace(/\s/g, "").length) {
-      formErrors.push("This field can't be blank");
-      valid = false;
+    if (!taskText.replace(/\s/g, '').length) {
+      formErrors.push("This field can't be blank")
+      valid = false
     }
     if (taskText.length > 20) {
-      formErrors.push("To long, max 20 characters");
-      valid = false;
+      formErrors.push('To long, max 20 characters')
+      valid = false
     }
-    setFormValidationErrors(formErrors);
-    return valid;
-  };
+    setFormValidationErrors(formErrors)
+    return valid
+  }
 
   const onChange = (e) => {
-    setText(e.target.value);
-    isTodoFormValid(e.target.value);
-  };
+    setText(e.target.value)
+    isTodoFormValid(e.target.value)
+  }
 
   const clearInput = () => {
-    setText("");
-  };
+    setText('')
+  }
 
   const addTodo = async () => {
-    setTodoListLoading(true);
-    const newTodo = { title: text, completed: false };
-    await GOREST.createTodo(newTodo);
-    const todoListResponse = await GOREST.getTodos();
-    const receivedTododList = todoListResponse.data;
+    setTodoListLoading(true)
+    const newTodo = { title: text, completed: false }
+    await GOREST.createTodo(newTodo)
+    const todoListResponse = await GOREST.getTodos()
+    const receivedTododList = todoListResponse.data
     const filteredRecivedTodoList = receivedTododList.filter(
-      (todo) => !listOfDeletedTodoIds.includes(todo.id)
-    );
-    const updatedTodoList = getOneTodoListFromTwoCompetingOnes(
-      filteredRecivedTodoList,
-      todoList
-    );
+      (todo) => !listOfDeletedTodoIds.includes(todo.id),
+    )
+    const updatedTodoList = getOneTodoListFromTwoCompetingOnes(filteredRecivedTodoList, todoList)
 
-    setTodoList(updatedTodoList);
-    setTodoListLoading(false);
-    localStorageSave("todoAppData-TodoList", [...updatedTodoList]);
-  };
+    setTodoList(updatedTodoList)
+    setTodoListLoading(false)
+    localStorageSave('todoAppData-TodoList', [...updatedTodoList])
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!isTodoFormValid(text)) return;
-    await addTodo();
-    clearInput();
-  };
+    e.preventDefault()
+    if (!isTodoFormValid(text)) return
+    await addTodo()
+    clearInput()
+  }
   return (
     <Box
-      as={"form"}
+      as={'form'}
       onSubmit={handleSubmit}
       sx={{
-        margin: "0 auto",
-        position: "relative",
-        "@media screen and (max-width: 64em)": {
-          width: "100%",
+        margin: '0 auto',
+        position: 'relative',
+        '@media screen and (max-width: 64em)': {
+          width: '100%',
         },
       }}
       width="84%"
@@ -97,17 +87,17 @@ const TodoItemCreator = () => {
       <Flex>
         <Box
           textAlign="center"
-          bg={text.length > 20 ? "red" : "primary"}
+          bg={text.length > 20 ? 'red' : 'primary'}
           sx={{
-            position: "absolute",
-            lineHeight: "19px",
-            color: "white",
-            fontSize: "13px",
-            borderRadius: "100%",
-            width: "20px",
-            height: "20px",
-            top: "-13px",
-            left: "-13px",
+            position: 'absolute',
+            lineHeight: '19px',
+            color: 'white',
+            fontSize: '13px',
+            borderRadius: '100%',
+            width: '20px',
+            height: '20px',
+            top: '-13px',
+            left: '-13px',
           }}
         >
           <CharacterCount />
@@ -120,7 +110,7 @@ const TodoItemCreator = () => {
           value={text}
           onChange={onChange}
         />
-        <Button ml={2} type="submit" sx={{ cursor: "pointer" }}>
+        <Button ml={2} type="submit" sx={{ cursor: 'pointer' }}>
           Add
         </Button>
       </Flex>
@@ -128,7 +118,7 @@ const TodoItemCreator = () => {
         {formValidationErrors[0]}
       </Text>
     </Box>
-  );
-};
+  )
+}
 
-export default TodoItemCreator;
+export default TodoItemCreator

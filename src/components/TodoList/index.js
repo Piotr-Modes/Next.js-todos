@@ -1,19 +1,17 @@
-import TodoItem from "../TodoItem";
-import List from "../utilities/List";
-import withLoading from "../utilities/withLoading";
-import withRecoilStateCheck from "../utilities/withRecoilStateCheck";
-import { recoilReadyState, todoListLoadingState } from "../../recoil";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { Box } from "rebass";
+import TodoItem from '../TodoItem'
+import List from '../utilities/List'
+import withLoading from '../utilities/withLoading'
+import withRecoilStateCheck from '../utilities/withRecoilStateCheck'
+import { recoilReadyState, todoListLoadingState } from '../../recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import { Box } from 'rebass'
 
-const ListWithLoading = withLoading(List);
-const ListWithLoadingWithRecoilStateCheck = withRecoilStateCheck(
-  ListWithLoading
-);
+const ListWithLoading = withLoading(List)
+const ListWithLoadingWithRecoilStateCheck = withRecoilStateCheck(ListWithLoading)
 
 const TodoList = ({ allTodos, filteredTodoList }) => {
-  const [recoilReady, setRecoilReady] = useRecoilState(recoilReadyState);
-  const todoListLoading = useRecoilValue(todoListLoadingState);
+  const [recoilReady, setRecoilReady] = useRecoilState(recoilReadyState)
+  const todoListLoading = useRecoilValue(todoListLoadingState)
   const renderTodoList = (todo, index) => {
     return (
       <TodoItem
@@ -23,8 +21,8 @@ const TodoList = ({ allTodos, filteredTodoList }) => {
         completed={todo.completed}
         createdDate={todo.created_at}
       />
-    );
-  };
+    )
+  }
   return (
     <Box mt={3} textAlign="center">
       <ListWithLoadingWithRecoilStateCheck
@@ -35,7 +33,7 @@ const TodoList = ({ allTodos, filteredTodoList }) => {
         listRenderer={renderTodoList}
       />
     </Box>
-  );
-};
+  )
+}
 
-export default TodoList;
+export default TodoList

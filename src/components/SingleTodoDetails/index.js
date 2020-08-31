@@ -1,5 +1,5 @@
-import { Box, Flex } from "rebass";
-import { timezoneFormatedDate } from "../../helperFunctions";
+import { Box, Flex } from 'rebass'
+import { timezoneFormatedDate } from '../../helperFunctions'
 
 const SingleTodoDetails = ({ todo }) => {
   return (
@@ -8,7 +8,7 @@ const SingleTodoDetails = ({ todo }) => {
         <Box width={1 / 2} fontWeight="bold">
           ID:
         </Box>
-        <Box width={1 / 2} as={"span"}>
+        <Box width={1 / 2} as={'span'}>
           {todo.id}
         </Box>
       </Flex>
@@ -16,7 +16,7 @@ const SingleTodoDetails = ({ todo }) => {
         <Box width={1 / 2} fontWeight="bold">
           Created Date:
         </Box>
-        <Box width={1 / 2} as={"span"}>
+        <Box width={1 / 2} as={'span'}>
           {timezoneFormatedDate(todo.created_at)}
         </Box>
       </Flex>
@@ -24,20 +24,20 @@ const SingleTodoDetails = ({ todo }) => {
         <Box width={1 / 2} fontWeight="bold">
           Completed:
         </Box>
-        <Box width={1 / 2} as={"span"}>
-          {todo.completed ? "Yes" : "No"}
+        <Box width={1 / 2} as={'span'}>
+          {todo.completed ? 'Yes' : 'No'}
         </Box>
       </Flex>
       <Flex alignContent="space-between">
         <Box width={1 / 2} fontWeight="bold">
           Task:
         </Box>
-        <Box width={1 / 2} as={"span"}>
+        <Box width={1 / 2} as={'span'}>
           {todo.title}
         </Box>
       </Flex>
     </Box>
-  );
-};
+  )
+}
 
-export default SingleTodoDetails;
+export default SingleTodoDetails

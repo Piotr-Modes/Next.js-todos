@@ -1,10 +1,10 @@
-import { useRecoilValue } from "recoil";
-import { charCountState } from "../../recoil";
+import { useRecoilValue } from 'recoil'
+import { charCountState } from '../../recoil'
 
 const CharacterCount = () => {
-  const count = useRecoilValue(charCountState);
+  const count = useRecoilValue(charCountState)
 
-  return <>{count}</>;
-};
+  return <>{count}</>
+}
 
-export default CharacterCount;
+export default CharacterCount

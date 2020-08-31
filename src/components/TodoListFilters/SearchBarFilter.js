@@ -1,17 +1,17 @@
-import { useRecoilState } from "recoil";
-import { todoListFilterState, searchInputState } from "../../recoil";
-import { Label, Input } from "@rebass/forms";
+import { useRecoilState } from 'recoil'
+import { todoListFilterState, searchInputState } from '../../recoil'
+import { Label, Input } from '@rebass/forms'
 
 const SearchBarFilter = () => {
-  const [filter, setFilter] = useRecoilState(todoListFilterState);
-  const [inputValue, setInputValue] = useRecoilState(searchInputState);
+  const [filter, setFilter] = useRecoilState(todoListFilterState)
+  const [inputValue, setInputValue] = useRecoilState(searchInputState)
   const onChange = (e) => {
-    const userInput = e.currentTarget.value;
-    setInputValue(userInput);
-  };
+    const userInput = e.currentTarget.value
+    setInputValue(userInput)
+  }
   const onKeyDown = (e) => {
-    setFilter("Search");
-  };
+    setFilter('Search')
+  }
   return (
     <>
       <Label htmlFor="search">Search</Label>
@@ -23,7 +23,7 @@ const SearchBarFilter = () => {
         placeholder="Search"
       />
     </>
-  );
-};
+  )
+}
 
-export default SearchBarFilter;
+export default SearchBarFilter

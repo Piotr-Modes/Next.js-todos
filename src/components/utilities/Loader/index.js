@@ -1,5 +1,5 @@
-import { Spinner } from "theme-ui";
+import { Spinner } from 'theme-ui'
 
-const Loader = () => <Spinner />;
+const Loader = () => <Spinner />
 
-export default Loader;
+export default Loader

@@ -1,20 +1,20 @@
-import { RecoilRoot } from "recoil";
-import { useState } from "react";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
-import { ThemeProvider } from "theme-ui";
-import theme from "@rebass/preset";
-import FullPageLoader from "../components/utilities/FullPageLoader";
+import { RecoilRoot } from 'recoil'
+import { useState } from 'react'
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { ThemeProvider } from 'theme-ui'
+import theme from '@rebass/preset'
+import FullPageLoader from '../components/utilities/FullPageLoader'
 
 function MyApp({ Component, pageProps }) {
-  const router = useRouter();
+  const router = useRouter()
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    router.events.on("routeChangeStart", () => setLoading(true));
-    router.events.on("routeChangeComplete", () => setLoading(false));
-  });
+    router.events.on('routeChangeStart', () => setLoading(true))
+    router.events.on('routeChangeComplete', () => setLoading(false))
+  })
   return (
     <RecoilRoot>
       <ThemeProvider theme={theme}>
@@ -22,7 +22,7 @@ function MyApp({ Component, pageProps }) {
         {!loading && <Component {...pageProps} />}
       </ThemeProvider>
     </RecoilRoot>
-  );
+  )
 }
 
-export default MyApp;
+export default MyApp
