@@ -4,6 +4,12 @@ Simple todo app using Next.js, Recoil.js, Rebass.js and gorest.co.in as api.
 
 ## Getting Started
 
+For this app to fully work you need to generate your own gorest api access token.
+You can do it here: https://gorest.co.in/
+After that just create a .env.local file in the root directory of this project and paste your api access token
+in it like this:
+NEXT_PUBLIC_GOREST_API_TOKEN = 'YOUR ACCESS TOKEN HERE'
+
 First, run the development server:
 
 ```bash

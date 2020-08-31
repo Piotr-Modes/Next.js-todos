@@ -1,6 +1,5 @@
 import moment from 'moment'
 import 'moment-timezone'
-import env from '../config/env'
 
 export const trimedString = (str, limiter) => {
   if (str.length <= limiter) return str.replace(/\n/g, ' ')
@@ -30,7 +29,7 @@ export const replaceItemAtIndex = (arr, index, newValue) => {
 }
 
 export const ApiHelper = (url, method = 'GET', data = {}) => {
-  const bearer = `Bearer ${env.GOREST_API_TOKEN}`
+  const bearer = `Bearer ${process.env.NEXT_PUBLIC_GOREST_API_TOKEN}`
   let aditional
   method === 'POST' ? (aditional = { body: JSON.stringify(data) }) : (aditional = {})
   return fetch(url, {
