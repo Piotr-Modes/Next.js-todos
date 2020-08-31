@@ -1,16 +1,11 @@
-import { Box, Flex, Text } from "rebass";
+import { Box, Flex } from "rebass";
 import { timezoneFormatedDate } from "../../helperFunctions";
 
 const SingleTodoDetails = ({ todo }) => {
   return (
     <Box mt={5}>
       <Flex alignContent="space-between">
-        <Box
-          width={1 / 2}
-          fontSize={[3, 4, 5]}
-          fontWeight="bold"
-          //   color="primary"
-        >
+        <Box width={1 / 2} fontSize={[3, 4, 5]} fontWeight="bold">
           ID:
         </Box>
         <Box width={1 / 2} as={"span"} fontSize={[3, 4, 5]}>

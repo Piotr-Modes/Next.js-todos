@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { ThemeProvider } from "theme-ui";
-import { Box } from "rebass";
 import theme from "@rebass/preset";
 import FullPageLoader from "../components/utilities/FullPageLoader";
 
