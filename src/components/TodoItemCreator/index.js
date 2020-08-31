@@ -1,5 +1,6 @@
 import GOREST from "../../apis/GOREST";
 import { useRecoilState } from "recoil";
+import { useState } from "react";
 import {
   textState,
   todoListState,
@@ -10,11 +11,12 @@ import {
   localStorageSave,
   getOneTodoListFromTwoCompetingOnes,
 } from "../../helperFunctions";
-import { Box, Flex, Button } from "rebass";
+import { Box, Flex, Button, Text } from "rebass";
 import { Input } from "@rebass/forms";
 import CharacterCount from "../CharacterCounter";
 
 const TodoItemCreator = () => {
+  const [formValidationErrors, setFormValidationErrors] = useState([]);
   const [todoList, setTodoList] = useRecoilState(todoListState);
   const [todoListLoading, setTodoListLoading] = useRecoilState(
     todoListLoadingState
@@ -24,8 +26,29 @@ const TodoItemCreator = () => {
     listOfDeletedTodoIdsState
   );
 
+  const isTodoFormValid = (taskText) => {
+    let valid = true;
+    const formErrors = [];
+
+    if (taskText === "") {
+      formErrors.push("Please fill in the task input");
+      valid = false;
+    }
+    if (!taskText.replace(/\s/g, "").length) {
+      formErrors.push("This field can't be blank");
+      valid = false;
+    }
+    if (taskText.length > 20) {
+      formErrors.push("To long, max 20 characters");
+      valid = false;
+    }
+    setFormValidationErrors(formErrors);
+    return valid;
+  };
+
   const onChange = (e) => {
     setText(e.target.value);
+    isTodoFormValid(e.target.value);
   };
 
   const clearInput = () => {
@@ -53,7 +76,7 @@ const TodoItemCreator = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (text.length < 1) return;
+    if (!isTodoFormValid(text)) return;
     await addTodo();
     clearInput();
   };
@@ -74,7 +97,7 @@ const TodoItemCreator = () => {
       <Flex>
         <Box
           textAlign="center"
-          bg="primary"
+          bg={text.length > 20 ? "red" : "primary"}
           sx={{
             position: "absolute",
             lineHeight: "19px",
@@ -101,6 +124,9 @@ const TodoItemCreator = () => {
           Add
         </Button>
       </Flex>
+      <Text fontSize={0} color="red">
+        {formValidationErrors[0]}
+      </Text>
     </Box>
   );
 };

@@ -1,4 +1,3 @@
-import "../styles/globals.css";
 import { RecoilRoot } from "recoil";
 import { useState } from "react";
 import { useEffect } from "react";
