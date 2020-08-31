@@ -1,5 +1,10 @@
 import Link from 'next/link'
-import { localStorageSave, timezoneFormatedDate, replaceItemAtIndex } from '../../helperFunctions'
+import {
+  localStorageSave,
+  timezoneFormatedDate,
+  replaceItemAtIndex,
+  trimedString,
+} from '../../helperFunctions'
 import { useRecoilState } from 'recoil'
 import { todoListState, listOfDeletedTodoIdsState } from '../../recoil'
 import { Box, Text, Flex, Button } from 'rebass'
@@ -39,8 +44,16 @@ const TodoItem = ({ id, todoText, completed, createdDate }) => {
             }}
           />
         </Label>
-        <Text flexGrow="1" textAlign="left" lineHeight={'27px'} fontWeight="bold" fontSize={[0, 1]}>
-          {todoText}
+        <Text
+          id={id}
+          data-tip={todoText.length > 40 ? todoText : ''}
+          flexGrow="1"
+          textAlign="left"
+          lineHeight={'27px'}
+          fontWeight="bold"
+          fontSize={[0, 1]}
+        >
+          {trimedString(todoText, 40)}
         </Text>
 
         <Flex width={1 / 12} minWidth="155px" sx={{ flexGrow: 1 }} justifyContent="flex-end">

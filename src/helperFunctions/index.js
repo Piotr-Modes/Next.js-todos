@@ -2,6 +2,22 @@ import moment from 'moment'
 import 'moment-timezone'
 import env from '../config/env'
 
+export const trimedString = (str, limiter) => {
+  if (str.length <= limiter) return str.replace(/\n/g, ' ')
+  const trimedStr =
+    str
+      .split(' ')
+      .reduce((limitedArray, word) => {
+        if (limitedArray.join(' ').length + word.length < limiter) {
+          limitedArray.push(word)
+        }
+        return limitedArray
+      }, [])
+      .join(' ')
+      .replace(/\n/g, ' ') + '...'
+  return trimedStr
+}
+
 export const timezoneFormatedDate = (givenDate) => {
   const timeZone = moment.tz.guess()
   let date = moment(new Date(givenDate))
