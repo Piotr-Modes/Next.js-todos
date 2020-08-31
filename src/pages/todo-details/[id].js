@@ -6,7 +6,6 @@ import SingleTodoDetails from '../../components/SingleTodoDetails'
 
 const TodoDetails = (todo) => {
   const router = useRouter()
-  console.log(router.query.id)
 
   return (
     <PageWrapper>

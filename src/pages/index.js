@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { useEffect } from 'react'
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import {
   todoListState,
   recoilReadyState,
@@ -23,10 +23,10 @@ import TodoListStats from '../components/TodoListStats'
 import ReactTooltip from 'react-tooltip'
 
 const Index = ({ allTodos }) => {
-  const [todoList, setTodoList] = useRecoilState(todoListState)
   const filteredTodoList = useRecoilValue(filteredTodoListState)
-  const [recoilReady, setRecoilReady] = useRecoilState(recoilReadyState)
-  const [listOfDeletedTodoIds, setListOfDeletedTodoIds] = useRecoilState(listOfDeletedTodoIdsState)
+  const setTodoList = useSetRecoilState(todoListState)
+  const setRecoilReady = useSetRecoilState(recoilReadyState)
+  const setListOfDeletedTodoIds = useSetRecoilState(listOfDeletedTodoIdsState)
 
   useEffect(() => {
     const updateAppDataFromLocalStorage = async () => {

@@ -3,16 +3,16 @@ import List from '../utilities/List'
 import withLoading from '../utilities/withLoading'
 import withRecoilStateCheck from '../utilities/withRecoilStateCheck'
 import { recoilReadyState, todoListLoadingState } from '../../recoil'
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { useRecoilValue } from 'recoil'
 import { Box } from 'rebass'
 
 const ListWithLoading = withLoading(List)
 const ListWithLoadingWithRecoilStateCheck = withRecoilStateCheck(ListWithLoading)
 
 const TodoList = ({ allTodos, filteredTodoList }) => {
-  const [recoilReady, setRecoilReady] = useRecoilState(recoilReadyState)
+  const recoilReady = useRecoilValue(recoilReadyState)
   const todoListLoading = useRecoilValue(todoListLoadingState)
-  const renderTodoList = (todo, index) => {
+  const renderTodoList = (todo) => {
     return (
       <TodoItem
         key={todo.id}

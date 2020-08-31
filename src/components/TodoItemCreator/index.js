@@ -1,5 +1,6 @@
 import GOREST from '../../apis/GOREST'
-import { useRecoilState } from 'recoil'
+import ReactTooltip from 'react-tooltip'
+import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil'
 import { useState } from 'react'
 import {
   textState,
@@ -15,9 +16,9 @@ import CharacterCount from '../CharacterCounter'
 const TodoItemCreator = () => {
   const [formValidationErrors, setFormValidationErrors] = useState([])
   const [todoList, setTodoList] = useRecoilState(todoListState)
-  const [todoListLoading, setTodoListLoading] = useRecoilState(todoListLoadingState)
   const [text, setText] = useRecoilState(textState)
-  const [listOfDeletedTodoIds, setListOfDeletedTodoIds] = useRecoilState(listOfDeletedTodoIdsState)
+  const listOfDeletedTodoIds = useRecoilValue(listOfDeletedTodoIdsState)
+  const setTodoListLoading = useSetRecoilState(todoListLoadingState)
 
   const isTodoFormValid = (taskText) => {
     let valid = true
@@ -69,6 +70,7 @@ const TodoItemCreator = () => {
     if (!isTodoFormValid(text)) return
     await addTodo()
     clearInput()
+    ReactTooltip.rebuild()
   }
   return (
     <Box

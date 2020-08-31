@@ -1,4 +1,4 @@
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useSetRecoilState } from 'recoil'
 import { todoListFilterState, searchInputState } from '../../recoil'
 import { Label, Input } from '@rebass/forms'
 
@@ -10,12 +10,13 @@ const SearchBarFilter = () => {
     setInputValue(userInput)
   }
   const onKeyDown = (e) => {
-    setFilter('Search')
+    filter !== 'Search' ? setFilter('Search') : null
   }
   return (
     <>
       <Label htmlFor="search">Search</Label>
       <Input
+        value={inputValue}
         onChange={onChange}
         onKeyDown={onKeyDown}
         id="search"

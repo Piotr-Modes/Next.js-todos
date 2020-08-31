@@ -3,8 +3,7 @@ import { useRecoilValue } from 'recoil'
 import { Box, Flex } from 'rebass'
 
 const TodoListStats = () => {
-  const todoListStats = useRecoilValue(todoListStatsState)
-  const { all, completed, uncompleted } = todoListStats
+  const { all, completed, uncompleted } = useRecoilValue(todoListStatsState)
   return (
     <Flex sx={{ fontSize: [0, 1] }} mx={-2} mt={3} justifyContent="space-between">
       <Box variant="badge" width={1 / 3} p={2}>
