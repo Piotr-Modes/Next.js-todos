@@ -1,11 +1,12 @@
 import "../styles/globals.css";
-import Loader from "../components/utilities/Loader";
 import { RecoilRoot } from "recoil";
 import { useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { ThemeProvider } from "theme-ui";
+import { Box } from "rebass";
 import theme from "@rebass/preset";
-import { useEffect } from "react";
+import FullPageLoader from "../components/utilities/FullPageLoader";
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -19,7 +20,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <RecoilRoot>
       <ThemeProvider theme={theme}>
-        {loading && <Loader />}
+        {loading && <FullPageLoader />}
         {!loading && <Component {...pageProps} />}
       </ThemeProvider>
     </RecoilRoot>

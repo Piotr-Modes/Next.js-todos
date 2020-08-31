@@ -1,38 +1,18 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
-import { todoListState } from "../../recoil";
-import { Box } from "rebass";
-import PageHeader from "../../components/PageHeader";
-import singleTodoDetails from "../../components/SingleTodoDetails";
+import PageHeader from "../../components/PagesSharedComponents/PageHeader";
+import PageWrapper from "../../components/PagesSharedComponents/PageWrapper";
 import GOREST from "../../apis/GOREST";
 import SingleTodoDetails from "../../components/SingleTodoDetails";
 
 const TodoDetails = (todo) => {
-  const [todoList, setTodoList] = useRecoilState(todoListState);
-  const [singleTodoDetails, setSingleTodoDetails] = useState({});
   const router = useRouter();
   console.log(router.query.id);
-  useEffect(() => {}, []);
 
   return (
-    <Box
-      as={"main"}
-      sx={{
-        p: 4,
-        color: "text",
-        bg: "background",
-        maxWidth: "700px",
-        margin: "0 auto",
-        fontFamily: "body",
-        fontWeight: "body",
-        lineHeight: "body",
-      }}
-      mt={4}
-    >
+    <PageWrapper>
       <PageHeader headerText="ToDo Deatails" />
       <SingleTodoDetails todo={todo} />
-    </Box>
+    </PageWrapper>
   );
 };
 

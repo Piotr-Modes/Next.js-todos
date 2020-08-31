@@ -5,7 +5,8 @@ import GOREST from "../apis/GOREST";
 // import withLoading from "../components/utilities/withLoading";
 // import withRecoilStateCheck from "../components/utilities/withRecoilStateCheck";
 // import List from "../components/utilities/List";
-import PageHeader from "../components/PageHeader";
+import PageHeader from "../components/PagesSharedComponents/PageHeader";
+import PageWrapper from "../components/PagesSharedComponents/PageWrapper";
 import TodoList from "../components/TodoList";
 import TodoItem from "../components/TodoItem";
 import TodoItemCreator from "../components/TodoItemCreator";
@@ -78,50 +79,19 @@ const Index = ({ allTodos }) => {
     };
     checkForTododAppDataInLocalStorage();
   }, []);
-  const renderTodoList = (todo, index) => {
-    return (
-      <TodoItem
-        key={todo.id}
-        id={todo.id}
-        todoText={todo.title}
-        completed={todo.completed}
-        createdDate={todo.created_at}
-      />
-    );
-  };
   return (
     <>
       <Head>
         <title>Todo Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Box
-        as={"main"}
-        sx={{
-          p: 4,
-          color: "text",
-          bg: "background",
-          maxWidth: "700px",
-          margin: "0 auto",
-          fontFamily: "body",
-          fontWeight: "body",
-          lineHeight: "body",
-        }}
-        mt={4}
-      >
+      <PageWrapper>
         <PageHeader headerText="ToDo List" />
         <TodoItemCreator />
         <TodoListFilters />
         <TodoListStats />
         <TodoList allTodos={allTodos} filteredTodoList={filteredTodoList} />
-        {/* <ListWithLoadingWithRecoilStateCheck
-          isRecoilStateReady={recoilReady}
-          initialState={allTodos}
-          recoilState={filteredTodoList}
-          isLoading={todoListLoading}
-          listRenderer={renderTodoList}
-        /> */}
-      </Box>
+      </PageWrapper>
     </>
   );
 };
