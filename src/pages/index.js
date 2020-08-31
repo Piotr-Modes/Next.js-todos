@@ -34,6 +34,7 @@ const Index = ({ allTodos }) => {
   );
 
   useEffect(() => {
+    console.log(allTodos);
     const checkForTododAppDataInLocalStorage = async () => {
       try {
         const response = await JSON.parse(
@@ -129,7 +130,7 @@ const Index = ({ allTodos }) => {
 
 Index.getInitialProps = async () => {
   const response = await GOREST.getTodos();
-  return { allTodos: response.data.data };
+  return { allTodos: response.data };
 };
 
 export default Index;

@@ -1,21 +1,13 @@
-import axios from "axios";
+import { ApiHelper } from "../helperFunctions";
 
-const baseUrl = "https://gorest.co.in/public-api/users/128/todos";
-
-const env = {
-  API_TOKEN: "bf8bf0ff8025f3b1b57ee52dba22b17de0614cc30e2df70a36170f76e7e53b5a",
-};
-
-const config = {
-  headers: { Authorization: `Bearer ${env.API_TOKEN}` },
-};
+const baseUrl = "https://gorest.co.in/public-api/users/127/todos";
 
 const getTodos = () => {
-  return axios.get(baseUrl);
+  return ApiHelper(baseUrl);
 };
 
 const createTodo = (todoDetails) => {
-  return axios.post(baseUrl, todoDetails, config);
+  return ApiHelper(baseUrl, "POST", todoDetails);
 };
 
 export default {
