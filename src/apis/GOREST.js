@@ -1,12 +1,12 @@
 import ApiHelper from '../helperFunctions/ApiHelper'
 
-const baseUrl = 'https://gorest.co.in/public-api/users/130/todos'
+const baseUrl = process.env.NEXT_PUBLIC_GOREST_API_URL
 
 const getTodos = () => {
   return ApiHelper(baseUrl)
 }
 
-const createTodo = (todoDetails) => {
+const createTodo = todoDetails => {
   return ApiHelper(baseUrl, 'POST', todoDetails)
 }
 

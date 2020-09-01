@@ -53,13 +53,11 @@ export const filteredTodoListState = selector({
 
     switch (filter) {
       case 'Search':
-        return list.filter(
-          (item) => item.title.toLowerCase().indexOf(searchValue.toLowerCase()) > -1,
-        )
+        return list.filter(item => item.title.toLowerCase().indexOf(searchValue.toLowerCase()) > -1)
       case 'Show Completed':
-        return list.filter((item) => item.completed)
+        return list.filter(item => item.completed)
       case 'Show Uncompleted':
-        return list.filter((item) => !item.completed)
+        return list.filter(item => !item.completed)
       default:
         return list
     }
@@ -73,8 +71,8 @@ export const todoListStatsState = selector({
 
     return {
       all: todoList.length,
-      completed: todoList.filter((item) => item.completed).length,
-      uncompleted: todoList.filter((item) => !item.completed).length,
+      completed: todoList.filter(item => item.completed).length,
+      uncompleted: todoList.filter(item => !item.completed).length,
     }
   },
 })

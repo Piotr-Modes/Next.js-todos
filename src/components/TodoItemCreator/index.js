@@ -1,15 +1,18 @@
-import GOREST from '../../apis/GOREST'
-import ReactTooltip from 'react-tooltip'
-import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil'
 import { useState } from 'react'
+import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil'
 import {
   textState,
   todoListState,
   todoListLoadingState,
   listOfDeletedTodoIdsState,
 } from '../../recoil'
+
+import GOREST from '../../apis/GOREST'
+
 import { localStorageSave } from '../../helperFunctions/localStorageHelper'
 import { getOneTodoListFromTwoCompetingOnes } from '../../helperFunctions/arrayOperationsHelper'
+
+import ReactTooltip from 'react-tooltip'
 import { Box, Flex, Button, Text } from 'rebass'
 import { Input } from '@rebass/forms'
 import CharacterCount from '../CharacterCounter'
@@ -21,7 +24,7 @@ const TodoItemCreator = () => {
   const listOfDeletedTodoIds = useRecoilValue(listOfDeletedTodoIdsState)
   const setTodoListLoading = useSetRecoilState(todoListLoadingState)
 
-  const isTodoFormValid = (taskText) => {
+  const isTodoFormValid = taskText => {
     let valid = true
     const formErrors = []
 
@@ -41,7 +44,7 @@ const TodoItemCreator = () => {
     return valid
   }
 
-  const onChange = (e) => {
+  const onChange = e => {
     setText(e.target.value)
     isTodoFormValid(e.target.value)
   }
@@ -57,7 +60,7 @@ const TodoItemCreator = () => {
     const todoListResponse = await GOREST.getTodos()
     const receivedTododList = todoListResponse.data
     const filteredRecivedTodoList = receivedTododList.filter(
-      (todo) => !listOfDeletedTodoIds.includes(todo.id),
+      todo => !listOfDeletedTodoIds.includes(todo.id),
     )
     const updatedTodoList = getOneTodoListFromTwoCompetingOnes(filteredRecivedTodoList, todoList)
 
@@ -66,7 +69,7 @@ const TodoItemCreator = () => {
     localStorageSave('todoAppData-TodoList', [...updatedTodoList])
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault()
     if (!isTodoFormValid(text)) return
     await addTodo()

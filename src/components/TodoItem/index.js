@@ -1,10 +1,12 @@
-import Link from 'next/link'
+import { useRecoilState } from 'recoil'
+import { todoListState, listOfDeletedTodoIdsState } from '../../recoil'
+
 import { localStorageSave } from '../../helperFunctions/localStorageHelper'
 import { timezoneFormatedDate } from '../../helperFunctions/timeFormatingHelper'
 import { replaceItemAtIndex } from '../../helperFunctions/arrayOperationsHelper'
 import { trimedString } from '../../helperFunctions/stringOperationsHelper'
-import { useRecoilState } from 'recoil'
-import { todoListState, listOfDeletedTodoIdsState } from '../../recoil'
+
+import Link from 'next/link'
 import { Box, Text, Flex, Button } from 'rebass'
 import { Checkbox, Label } from '@rebass/forms'
 
@@ -12,8 +14,8 @@ const TodoItem = ({ id, todoText, completed, createdDate }) => {
   const [todoList, setTodoList] = useRecoilState(todoListState)
   const [listOfDeletedTodoIds, setListOfDeletedTodoIds] = useRecoilState(listOfDeletedTodoIdsState)
 
-  const toggleItemCompletion = (id) => {
-    const todoIndex = todoList.findIndex((todo) => todo.id === id)
+  const toggleItemCompletion = id => {
+    const todoIndex = todoList.findIndex(todo => todo.id === id)
     const updatedTodo = {
       ...todoList[todoIndex],
       completed: !todoList[todoIndex].completed,
@@ -23,8 +25,8 @@ const TodoItem = ({ id, todoText, completed, createdDate }) => {
     localStorageSave('todoAppData-TodoList', [...updatedList])
   }
 
-  const removeTodo = (id) => {
-    const listWithoutDeletedTodo = todoList.filter((e) => e.id !== id)
+  const removeTodo = id => {
+    const listWithoutDeletedTodo = todoList.filter(e => e.id !== id)
     setTodoList([...listWithoutDeletedTodo])
     localStorageSave('todoAppData-TodoList', [...listWithoutDeletedTodo])
     setListOfDeletedTodoIds([...listOfDeletedTodoIds, id])
@@ -55,8 +57,8 @@ const TodoItem = ({ id, todoText, completed, createdDate }) => {
         </Text>
 
         <Flex width={1 / 12} minWidth="155px" sx={{ flexGrow: 1 }} justifyContent="flex-end">
-          <Box width={100} px={2}>
-            <Text data-tip="Date of creation" fontSize={0} lineHeight={'30px'}>
+          <Box data-tip="Date of creation" width={100} px={2}>
+            <Text fontSize={0} lineHeight={'30px'}>
               {timezoneFormatedDate(createdDate)}
             </Text>
           </Box>
@@ -75,9 +77,9 @@ const TodoItem = ({ id, todoText, completed, createdDate }) => {
             </a>
           </Link>
           <Button
+            data-tip="Delete"
             mt={1.5}
             lineHeight={'11px'}
-            data-tip="Delete"
             ml={1}
             fontSize={11}
             sx={{

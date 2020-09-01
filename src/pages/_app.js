@@ -1,9 +1,11 @@
-import { RecoilRoot } from 'recoil'
-import { useState } from 'react'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { ThemeProvider } from 'theme-ui'
+
 import theme from '@rebass/preset'
+
+import { RecoilRoot } from 'recoil'
+import { ThemeProvider } from 'theme-ui'
+
 import FullPageLoader from '../components/utilities/FullPageLoader'
 
 function MyApp({ Component, pageProps }) {

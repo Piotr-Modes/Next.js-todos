@@ -1,6 +1,6 @@
-import Head from 'next/head'
 import { useEffect } from 'react'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
+
 import {
   todoListState,
   recoilReadyState,
@@ -13,7 +13,10 @@ import {
   localStorageGet,
 } from '../helperFunctions/localStorageHelper'
 import { getOneTodoListFromTwoCompetingOnes } from '../helperFunctions/arrayOperationsHelper'
+
 import GOREST from '../apis/GOREST'
+
+import Head from 'next/head'
 import PageHeader from '../components/PagesSharedComponents/PageHeader'
 import PageWrapper from '../components/PagesSharedComponents/PageWrapper'
 import TodoList from '../components/TodoList'
@@ -36,7 +39,7 @@ const Index = ({ allTodos }) => {
         setListOfDeletedTodoIds(localStorageListOfDeletedTodoIds)
         const receivedTododList = allTodos
         const filteredRecivedTodoList = receivedTododList.filter(
-          (e) => !localStorageListOfDeletedTodoIds.includes(e.id),
+          e => !localStorageListOfDeletedTodoIds.includes(e.id),
         )
         const updatedTodoList = getOneTodoListFromTwoCompetingOnes(
           filteredRecivedTodoList,
@@ -70,9 +73,9 @@ const Index = ({ allTodos }) => {
   )
 }
 
-Index.getInitialProps = async () => {
+export const getStaticProps = async () => {
   const response = await GOREST.getTodos()
-  return { allTodos: response.data }
+  return { props: { allTodos: response.data } }
 }
 
 export default Index
