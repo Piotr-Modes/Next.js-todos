@@ -8,7 +8,8 @@ import {
   todoListLoadingState,
   listOfDeletedTodoIdsState,
 } from '../../recoil'
-import { localStorageSave, getOneTodoListFromTwoCompetingOnes } from '../../helperFunctions'
+import { localStorageSave } from '../../helperFunctions/localStorageHelper'
+import { getOneTodoListFromTwoCompetingOnes } from '../../helperFunctions/arrayOperationsHelper'
 import { Box, Flex, Button, Text } from 'rebass'
 import { Input } from '@rebass/forms'
 import CharacterCount from '../CharacterCounter'
@@ -32,8 +33,8 @@ const TodoItemCreator = () => {
       formErrors.push("This field can't be blank")
       valid = false
     }
-    if (taskText.length > 20) {
-      formErrors.push('To long, max 20 characters')
+    if (taskText.length > 30) {
+      formErrors.push('To long, max 30 characters')
       valid = false
     }
     setFormValidationErrors(formErrors)
@@ -89,7 +90,7 @@ const TodoItemCreator = () => {
       <Flex>
         <Box
           textAlign="center"
-          bg={text.length > 20 ? 'red' : 'primary'}
+          bg={text.length > 30 ? 'red' : 'primary'}
           sx={{
             position: 'absolute',
             lineHeight: '19px',

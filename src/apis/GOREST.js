@@ -1,4 +1,4 @@
-import { ApiHelper } from '../helperFunctions'
+import ApiHelper from '../helperFunctions/ApiHelper'
 
 const baseUrl = 'https://gorest.co.in/public-api/users/130/todos'
 

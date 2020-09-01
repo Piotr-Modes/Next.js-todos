@@ -1,5 +1,5 @@
 import { Box, Flex } from 'rebass'
-import { timezoneFormatedDate } from '../../helperFunctions'
+import { timezoneFormatedDate } from '../../helperFunctions/timeFormatingHelper'
 
 const SingleTodoDetails = ({ todo }) => {
   return (

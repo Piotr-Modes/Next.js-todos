@@ -1,10 +1,8 @@
 import Link from 'next/link'
-import {
-  localStorageSave,
-  timezoneFormatedDate,
-  replaceItemAtIndex,
-  trimedString,
-} from '../../helperFunctions'
+import { localStorageSave } from '../../helperFunctions/localStorageHelper'
+import { timezoneFormatedDate } from '../../helperFunctions/timeFormatingHelper'
+import { replaceItemAtIndex } from '../../helperFunctions/arrayOperationsHelper'
+import { trimedString } from '../../helperFunctions/stringOperationsHelper'
 import { useRecoilState } from 'recoil'
 import { todoListState, listOfDeletedTodoIdsState } from '../../recoil'
 import { Box, Text, Flex, Button } from 'rebass'

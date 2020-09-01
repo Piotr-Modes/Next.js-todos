@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { useEffect } from 'react'
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
 import {
   todoListState,
   recoilReadyState,
@@ -11,8 +11,8 @@ import {
   isTodoAppDataInLocalStorage,
   localStorageSave,
   localStorageGet,
-  getOneTodoListFromTwoCompetingOnes,
-} from '../helperFunctions'
+} from '../helperFunctions/localStorageHelper'
+import { getOneTodoListFromTwoCompetingOnes } from '../helperFunctions/arrayOperationsHelper'
 import GOREST from '../apis/GOREST'
 import PageHeader from '../components/PagesSharedComponents/PageHeader'
 import PageWrapper from '../components/PagesSharedComponents/PageWrapper'
