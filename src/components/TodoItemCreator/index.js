@@ -9,7 +9,6 @@ import {
 
 import GOREST from '../../apis/GOREST'
 
-import { localStorageSave } from '../../helperFunctions/localStorageHelper'
 import { getOneTodoListFromTwoCompetingOnes } from '../../helperFunctions/arrayOperationsHelper'
 
 import ReactTooltip from 'react-tooltip'
@@ -66,7 +65,6 @@ const TodoItemCreator = () => {
 
     setTodoList(updatedTodoList)
     setTodoListLoading(false)
-    localStorageSave('todoAppData-TodoList', [...updatedTodoList])
   }
 
   const handleSubmit = async e => {

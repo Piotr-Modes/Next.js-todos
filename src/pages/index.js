@@ -7,11 +7,7 @@ import {
   filteredTodoListState,
   listOfDeletedTodoIdsState,
 } from '../recoil'
-import {
-  isTodoAppDataInLocalStorage,
-  localStorageSave,
-  localStorageGet,
-} from '../helperFunctions/localStorageHelper'
+import { isTodoAppDataInLocalStorage, localStorageGet } from '../helperFunctions/localStorageHelper'
 import { getOneTodoListFromTwoCompetingOnes } from '../helperFunctions/arrayOperationsHelper'
 
 import GOREST from '../apis/GOREST'
@@ -48,8 +44,7 @@ const Index = ({ allTodos }) => {
         setTodoList([...updatedTodoList])
       } else {
         setTodoList([...allTodos])
-        localStorageSave('todoAppData-TodoList', [...allTodos])
-        localStorageSave('todoAppData-ListOfDeletedTodoIds', [])
+        setListOfDeletedTodoIds([])
       }
       setRecoilReady(true)
     }

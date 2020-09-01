@@ -1,7 +1,6 @@
 import { useRecoilState } from 'recoil'
 import { todoListState, listOfDeletedTodoIdsState } from '../../recoil'
 
-import { localStorageSave } from '../../helperFunctions/localStorageHelper'
 import { timezoneFormatedDate } from '../../helperFunctions/timeFormatingHelper'
 import { replaceItemAtIndex } from '../../helperFunctions/arrayOperationsHelper'
 import { trimedString } from '../../helperFunctions/stringOperationsHelper'
@@ -22,15 +21,12 @@ const TodoItem = ({ id, todoText, completed, createdDate }) => {
     }
     const updatedList = replaceItemAtIndex(todoList, todoIndex, updatedTodo)
     setTodoList([...updatedList])
-    localStorageSave('todoAppData-TodoList', [...updatedList])
   }
 
   const removeTodo = id => {
     const listWithoutDeletedTodo = todoList.filter(e => e.id !== id)
     setTodoList([...listWithoutDeletedTodo])
-    localStorageSave('todoAppData-TodoList', [...listWithoutDeletedTodo])
     setListOfDeletedTodoIds([...listOfDeletedTodoIds, id])
-    localStorageSave('todoAppData-ListOfDeletedTodoIds', [...listOfDeletedTodoIds, id])
   }
   return (
     <Box key={id} mb={2} variant="card" Flex>
