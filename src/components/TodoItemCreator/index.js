@@ -52,11 +52,22 @@ const TodoItemCreator = () => {
     setText('')
   }
 
+  const checkIfApiLimitsReached = res => {
+    res.meta.pagination.total > 20
+      ? setFormValidationErrors([
+          ...formValidationErrors,
+          'Sorry, you have reached the api limits for today',
+        ])
+      : null
+  }
+
   const addTodo = async () => {
     setTodoListLoading(true)
     const newTodo = { title: text, completed: false }
     await GOREST.createTodo(newTodo)
     const todoListResponse = await GOREST.getTodos()
+    console.log(todoListResponse.meta.pagination.total)
+    checkIfApiLimitsReached(todoListResponse)
     const receivedTododList = todoListResponse.data
     const filteredRecivedTodoList = receivedTododList.filter(
       todo => !listOfDeletedTodoIds.includes(todo.id),
