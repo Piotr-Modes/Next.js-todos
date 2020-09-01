@@ -8,7 +8,12 @@ For this app to fully work you need to generate your own gorest api access token
 You can do it here: https://gorest.co.in/
 After that just create a .env.local file in the root directory of this project and paste your api access token
 in it like this:
+
 NEXT_PUBLIC_GOREST_API_TOKEN = 'YOUR ACCESS TOKEN HERE'
+
+You will also need a api url that you can find here: https://gorest.co.in/ under Nested Resources for todos.
+
+NEXT_PUBLIC_GOREST_API_URL = 'API_URL_HERE'
 
 First, run the development server:
 
